@@ -1,6 +1,7 @@
 \documentclass[10pt,fleqn]{article}
 \usepackage{standard}
 
+\geometry{left=27mm,right=27mm,top=40mm,bottom=30mm}
 
 \newcommand{\exerciseHeader}{%
   \hrule
@@ -46,7 +47,7 @@
       \[
         σ(H) = \set{E_n}{n\in\mathscr{I}}\subset\setReal
       \]
-      For all $n\in\mathscr{I}$ we denote $\ket{n}\in\mathscr{H}$ to be the unique normalized eigenfunction of $H$ with the eigenvalue $E_n$.
+      For all $n\in\mathscr{I}$ we denote $\ket{n}\in\mathscr{H}$ to be the unique normalized eigenstate of $H$ with the eigenvalue $E_n$.
       \[
         H\ket{n} = E_n\ket{n}
         \separate
@@ -55,21 +56,22 @@
       \[
         \forall m\in\mathscr{I},m\neq n: \quad E_m\neq E_n
       \]
-      Based on this and due to the self-adjointness of $H$, for all $n,m\in\mathscr{I}$ with $n\neq m$ we can derive that $\ket{m}$ and $\ket{n}$ are orthogonal.
-      \[
-        \bra{m}H\ket{n} = E_n \bracket{m}{n} = E_m \bracket{m}{n}
-      \]
-      \[
-        \implies (E_n-E_m) \bracket{m}{n} = 0
-      \]
-      \[
-        \implies \bracket{m}{n} = 0
-      \]
-      Hence, for all $n,m\in\mathscr{I}$ we can state the following.
-      \[
-        \bracket{m}{n} = δ_{mn}
-      \]
-      $H$ is therefore non-degenerate and $\set{\ket{n}}{n\in\mathscr{I}}$ is building an orthonormal basis of $\mathscr{H}$.
+      Based on this and due to the self-adjointness of the Hamiltonian $H$ we can derive that
+      % , for all $n,m\in\mathscr{I}$ with $n\neq m$ we can derive that $\ket{m}$ and $\ket{n}$ are orthogonal.
+      % \[
+      %   \bra{m}H\ket{n} = E_n \bracket{m}{n} = E_m \bracket{m}{n}
+      % \]
+      % \[
+      %   \implies (E_n-E_m) \bracket{m}{n} = 0
+      % \]
+      % \[
+      %   \implies \bracket{m}{n} = 0
+      % \]
+      % Hence, for all $n,m\in\mathscr{I}$ we can state the following.
+      % \[
+      %   \bracket{m}{n} = δ_{mn}
+      % \]
+      $H$ itself is non-degenerate and that the set $\set{\ket{n}}{n\in\mathscr{I}}$ is building an orthonormal basis of the Hilbert space $\mathscr{H}$.
 
       Further, we describe the perturbation of the system by the self-adjoint operator $\function{V}{\mathscr{H}}{\mathscr{H}}$.
       For the application of $V$ to $H$ we will use an interaction strength parameter which is introduced by using a function $\tilde{H}$ as shown below.
@@ -81,11 +83,20 @@
       The continuous parameterization will enable us to analyze the solution of the perturbed system $\tilde{H}(λ)$ in form of a series expansion in terms of λ.
       Please note that $\tilde{H}(1)$ is describing the system under the full perturbation.
 
-      We will assume that the contribution of $V$ is small and therefore not changes the essential properties of non-degeneracy and that of a discrete spectrum of $\tilde{H}(λ)$ for all $λ\in[0,1]$.
+      We will assume that the contribution of $V$ is small and therefore not changes the essential properties.
+      Hence, we choose $λ\in[0,1]$ to be arbitrary.
+      $\tilde{H}(λ)$ has a discrete spectrum.
+       % of non-degeneracy and that of a discrete spectrum of $\tilde{H}(λ)$ for all $λ\in[0,1]$.
       % Let $n\in\mathscr{I}$ be arbitrary.
       \[
         σ\roundBrackets{\tilde{H}(λ)} = \set{E_n(λ)}{n\in\mathscr{I}} \subset \setReal
       \]
+      $\tilde{H}(λ)$ is non-degenerate and we again assume its eigenstates to be normalized and therefore to build an orthonormal eigenbasis with respect to $\tilde{H}(λ)$
+      \footnote{%
+        The non-degeneracy of $\tilde{H}(λ)$ for all $λ\in[0,1]$ is not used explicitly.
+        Therefore the derived formulas should be valid even if the perturbation described by $V$ introduces degeneracies into the non-degenerate system described by $H$.%
+      }.
+      So for all $n\in\mathscr{I}$ it holds that
       \[
         \tilde{H}(λ) \ket{n(λ)} = E_n(λ) \ket{n(λ)}
       \]
@@ -93,9 +104,9 @@
         \forall m\in\mathscr{I},m\neq n: \quad E_m(λ)\neq E_n(λ)
       \]
       \[
-        \bracket{m(λ)}{n(λ)} = δ_{mn}
+        \bracket{n(λ)}{n(λ)} = 1
       \]
-      Additionally, we assume that we are able to expand $E_n(λ)$ and $\ket{n(λ)}$ in terms of $λ$ for all $λ\in[0,1]$.
+      Additionally, we assume that we are able to expand $E_n(λ)$ and $\ket{n(λ)}$ in terms of $λ$ for all $λ\in[0,1]$ for some constant coefficients.
       \[
         \set{E_{nk}}{}_{k=0}^\infty \subset \setReal
         \separate
@@ -109,7 +120,7 @@
 
       Taking the series expansions one can now derive inductive formulas for the coefficients.
       For that let $n\in\mathscr{I}$ and $λ\in[0,1]$ be arbitrary.
-      We will start with left-hand side of the eigenvalue equation.
+      We will start with the left-hand side of the eigenvalue equation.
       \begin{align*}
         &\tilde{H}(λ)\ket{n(λ)}\\
         &= (H+λV)\sum_{k=0}^\infty λ^k \ket{n_k} \\
@@ -140,7 +151,7 @@
         &= \sum_{k=0}^\infty λ^k \sum_{p=0}^k \bracket{n_p}{n_{k-p}}
       \end{align*}
       Again we do comparison of coefficients and get two equations.
-      One for starting value and one for all $k\in\setNatural$.
+      One for the starting value and one for all $k\in\setNatural$.
       \[
         \bracket{n_0}{n_0} = 1
       \]
@@ -151,7 +162,7 @@
       \end{align*}
       To make the second equation simpler consider that the overall phase is not determined in quantum mechanics.
       Hence, without loss of generality, we may assume $\bracket{n_0}{n_k}=\Re(\bracket{n_0}{n_k})\in\setReal$ is purely real.
-      For all $k\in\setNatural$ the second equations becomes the following.
+      For all $k\in\setNatural$ the second equation becomes the following.
       \[
         \bracket{n}{n_k} = -\frac{1}{2}\sum_{p=1}^{k-1} \bracket{n_p}{n_{k-p}}
       \]
@@ -177,11 +188,11 @@
         E_{n0} \define E_n
       \]
 
-      Now we take the inductive formula of the eigenvalue equation and will insert the starting values to get an operator equation for $\ket{n_k}$ for all $k\in\setNatural$.
+      Now we take the inductive formula of the eigenvalue equation and insert the starting values to get an operator equation for $\ket{n_k}$ for all $k\in\setNatural$.
       \[
         \roundBrackets{H-E_n}\ket{n_k} = -V\ket{n_{k-1}} + \sum_{p=1}^{k} E_{np}\ket{n_{k-p}}
       \]
-      But this equation gives us also information about the energy shift $E_{nk}$.
+      But this equation gives us some information about the energy shift $E_{nk}$ as well.
       For that we will apply $\bra{n}$ on the equation for all $k\in\setNatural$.
       \begin{align*}
         0
@@ -221,7 +232,7 @@
           \end{aligned}
       \end{align*}
 
-      With this we now have inductive explicit formulas with their respective starting values for $E_{nk}$ and $\ket{n_k}$ for all $k\in\setNatural$.
+      With this last equation we now have obtained explicit inductive formulas with their respective starting values for $E_{nk}$ and $\ket{n_k}$ for all $k\in\setNatural$.
       Through an iterative procedure beginning by $k=1$ one can now directly obtain the formulas for the energy and state shifts.
       \[
         E_{n1} = \bra{n}V\ket{n}
