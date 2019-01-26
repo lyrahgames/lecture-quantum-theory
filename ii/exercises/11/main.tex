@@ -1,0 +1,264 @@
+\documentclass[10pt,fleqn]{article}
+\usepackage{standard}
+
+
+\newcommand{\exerciseHeader}{%
+  \hrule
+  \begin{center}
+    \Large
+    \scshape
+    Advanced Quantum Theory \\ Exercise Sheet 11
+  \end{center}
+  \medskip
+  {
+    \footnotesize
+    \begin{minipage}[c]{0.49\textwidth}
+      Markus Pawellek \\
+      markuspawellek@gmail.com
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.49\textwidth}
+      \raggedleft
+      \today
+    \end{minipage}
+  }
+  \medskip
+  \hrule
+  \bigskip
+}
+
+\newcommand{\bra}[1]{\left\langle #1 \right\vert}
+\newcommand{\ket}[1]{\left\vert #1 \right\rangle}
+\newcommand{\bracket}[2]{\left\langle #1 \middle\vert #2 \right\rangle}
+
+\begin{document}
+  \selectlanguage{english}
+
+  \exerciseHeader
+
+  \begin{multicols}{2}
+    \section*{Problem 18: Perturbation Theory} % (fold)
+    \label{sec:problem_18_perturbation_theory}
+      Let $\roundBrackets{\mathscr{H},\bracket{\cdot}{\cdot}}$ be a separable Hilbert space which is modeling the perturbed and the unperturbed system.
+      For the formal definition of both systems we will define $\mathscr{I}$ as a countable index set with the same cardinality as an orthonormal basis of $\mathscr{H}$.
+
+      The Hamiltonian $\function{H}{\mathscr{H}}{\mathscr{H}}$ of the unperturbed system is assumed to have a discrete spectrum of real Energies.
+      \[
+        σ(H) = \set{E_n}{n\in\mathscr{I}}\subset\setReal
+      \]
+      For all $n\in\mathscr{I}$ we denote $\ket{n}\in\mathscr{H}$ to be the unique normalized eigenfunction of $H$ with the eigenvalue $E_n$.
+      \[
+        H\ket{n} = E_n\ket{n}
+        \separate
+        \bracket{n}{n} = 1
+      \]
+      \[
+        \forall m\in\mathscr{I},m\neq n: \quad E_m\neq E_n
+      \]
+      Based on this and due to the self-adjointness of $H$, for all $n,m\in\mathscr{I}$ with $n\neq m$ we can derive that $\ket{m}$ and $\ket{n}$ are orthogonal.
+      \[
+        \bra{m}H\ket{n} = E_n \bracket{m}{n} = E_m \bracket{m}{n}
+      \]
+      \[
+        \implies (E_n-E_m) \bracket{m}{n} = 0
+      \]
+      \[
+        \implies \bracket{m}{n} = 0
+      \]
+      Hence, for all $n,m\in\mathscr{I}$ we can state the following.
+      \[
+        \bracket{m}{n} = δ_{mn}
+      \]
+      $H$ is therefore non-degenerate and $\set{\ket{n}}{n\in\mathscr{I}}$ is building an orthonormal basis of $\mathscr{H}$.
+
+      Further, we describe the perturbation of the system by the self-adjoint operator $\function{V}{\mathscr{H}}{\mathscr{H}}$.
+      For the application of $V$ to $H$ we will use an interaction strength parameter which is introduced by using a function $\tilde{H}$ as shown below.
+      \[
+        \function{\tilde{H}}{[0,1]}{\mathrm{L}(\mathscr{H},\mathscr{H})}
+        \separate
+        \tilde{H}(λ) \define H + λ V
+      \]
+      The continuous parameterization will enable us to analyze the solution of the perturbed system $\tilde{H}(λ)$ in form of a series expansion in terms of λ.
+      Please note that $\tilde{H}(1)$ is describing the system under the full perturbation.
+
+      We will assume that the contribution of $V$ is small and therefore not changes the essential properties of non-degeneracy and that of a discrete spectrum of $\tilde{H}(λ)$ for all $λ\in[0,1]$.
+      % Let $n\in\mathscr{I}$ be arbitrary.
+      \[
+        σ\roundBrackets{\tilde{H}(λ)} = \set{E_n(λ)}{n\in\mathscr{I}} \subset \setReal
+      \]
+      \[
+        \tilde{H}(λ) \ket{n(λ)} = E_n(λ) \ket{n(λ)}
+      \]
+      \[
+        \forall m\in\mathscr{I},m\neq n: \quad E_m(λ)\neq E_n(λ)
+      \]
+      \[
+        \bracket{m(λ)}{n(λ)} = δ_{mn}
+      \]
+      Additionally, we assume that we are able to expand $E_n(λ)$ and $\ket{n(λ)}$ in terms of $λ$ for all $λ\in[0,1]$.
+      \[
+        \set{E_{nk}}{}_{k=0}^\infty \subset \setReal
+        \separate
+        E_n(λ) = \sum_{k=0}^\infty λ^k E_{nk}
+      \]
+      \[
+        \set{\ket{n_k}}{}_{k=0}^\infty\subset\mathscr{H}
+        \separate
+        \ket{n(λ)} = \sum_{k=0}^\infty λ^k \ket{n_k}
+      \]
+
+      Taking the series expansions one can now derive inductive formulas for the coefficients.
+      For that let $n\in\mathscr{I}$ and $λ\in[0,1]$ be arbitrary.
+      We will start with left-hand side of the eigenvalue equation.
+      \begin{align*}
+        &\tilde{H}(λ)\ket{n(λ)}\\
+        &= (H+λV)\sum_{k=0}^\infty λ^k \ket{n_k} \\
+        &= \sum_{k=0}^\infty λ^k H\ket{n_k} + \sum_{k=0}^\infty λ^{k+1} V\ket{n_k} \\
+        &= \sum_{k=0}^\infty λ^{k} H\ket{n_k} + \sum_{k=1}^\infty λ^{k} V\ket{n_{k-1}} \\
+        &= H\ket{n_0} + \sum_{k=1}^\infty λ^{k} \roundBrackets{H\ket{n_k} + V\ket{n_{k-1}}}
+      \end{align*}
+      For the right-hand side of the eigenvalue equation we do get the following.
+      \begin{align*}
+        &E_n(λ)\ket{n(λ)} \\
+        &= \roundBrackets{\sum_{k=0}^\infty λ^k E_{nk}}\roundBrackets{\sum_{k=0}^\infty λ^k \ket{n_k}} \\
+        &= \sum_{p,q=0}^\infty λ^{p+q} E_{np}\ket{n_q} \\
+        &= \sum_{k=0}^\infty λ^k \sum_{p=0}^k E_{np}\ket{n_{k-p}}
+      \end{align*}
+      Looking at the eigenvalue equation as a whole we are now able to do a comparison of coefficients.
+      This results in two equations.
+      One for the starting values and one for all $k\in\setNatural$.
+      \[
+        H\ket{n_0} = E_{n0}\ket{n_0}
+      \]
+      \[
+        H\ket{n_k} + V\ket{n_{k-1}} = \sum_{p=0}^k E_{np}\ket{n_{k-p}}
+      \]
+      After inserting the series expansions we can do something similar for the normalization condition.
+      \begin{align*}
+        1 &= \bracket{n(λ)}{n(λ)} \\
+        &= \sum_{p,q=0} λ^{p+q} \bracket{n_p}{n_q} \\
+        &= \sum_{k=0}^\infty λ^k \sum_{p=0}^k \bracket{n_p}{n_{k-p}}
+      \end{align*}
+      Again we do comparison of coefficients and get two equations.
+      One for starting value and one for all $k\in\setNatural$.
+      \[
+        \bracket{n_0}{n_0} = 1
+      \]
+      \begin{align*}
+        \bracket{n_0}{n_k} + \bracket{n_k}{n_0}
+        &= 2 \Re(\bracket{n_0}{n_k}) \\
+        &= -\sum_{p=1}^{k-1} \bracket{n_p}{n_{k-p}}
+      \end{align*}
+      To make the second equation simpler consider that the overall phase is not determined in quantum mechanics.
+      Hence, without loss of generality, we may assume $\bracket{n_0}{n_k}=\Re(\bracket{n_0}{n_k})\in\setReal$ is purely real.
+      For all $k\in\setNatural$ the second equations becomes the following.
+      \[
+        \bracket{n}{n_k} = -\frac{1}{2}\sum_{p=1}^{k-1} \bracket{n_p}{n_{k-p}}
+      \]
+
+      After deriving these formulas we will first take a look at the starting value equations.
+      \[
+        H\ket{n_0} = E_{n0}\ket{n_0}
+        \separate
+        \bracket{n_0}{n_0} = 1
+      \]
+      We see that $\ket{n_0}$ is a normalized eigenfunction of $H$ with the eigenvalue $E_{n0}$.
+      Therefore we can state the following.
+      \[
+        E_{n0} \in σ(H)
+        \separate
+        \ket{n_0} \in \set{\ket{m}}{m\in\mathscr{I}}
+      \]
+      We are free to choose the specific eigenfunction because this is the freedom of permuting the eigenstates.
+      But for consistency we will use the straightforward definition.
+      \[
+        \ket{n_0} \define \ket{n}
+        \separate
+        E_{n0} \define E_n
+      \]
+
+      Now we take the inductive formula of the eigenvalue equation and will insert the starting values to get an operator equation for $\ket{n_k}$ for all $k\in\setNatural$.
+      \[
+        \roundBrackets{H-E_n}\ket{n_k} = -V\ket{n_{k-1}} + \sum_{p=1}^{k} E_{np}\ket{n_{k-p}}
+      \]
+      But this equation gives us also information about the energy shift $E_{nk}$.
+      For that we will apply $\bra{n}$ on the equation for all $k\in\setNatural$.
+      \begin{align*}
+        0
+        &= \bra{n}\roundBrackets{H-E_n}\ket{n_k} \\
+        &= -\bra{n}V\ket{n_{k-1}} + \sum_{p=1}^k E_{np}\bracket{n}{n_{k-p}}
+      \end{align*}
+      By solving the equation for $E_{nk}$ one gets the following for all $k\in\setNatural$.
+      \[
+        E_{nk} = \bra{n}V\ket{n_{k-1}} - \sum_{p=1}^{k-1} E_{np}\bracket{n}{n_{k-p}}
+      \]
+      For the eigenstates $\ket{n_k}$ we basically have to invert the operator $H-E_n$.
+      But due to its singularity this is not possible.
+      For that reason we will first express $\ket{n_k}$ in terms of the orthonormal eigenbasis of $\mathscr{H}$ with respect to $H$.
+      \begin{align*}
+        \ket{n_k}
+        &= \sum_{m\in\mathscr{I}} \bracket{m}{n_k} \ket{m} \\
+        &= \bracket{n}{n_k}\ket{n} + \sum_{\substack{m\in\mathscr{I}\\m\neq n}} \bracket{m}{n_k} \ket{m}
+      \end{align*}
+      Let now $m\in\mathscr{I}$ with $m\neq n$ be arbitrary as well and apply $\bra{m}$ on the operator equation for $\ket{n_k}$ for all $k\in\setNatural$.
+      \begin{align*}
+        &\bra{m}\roundBrackets{H-E_n}\ket{n_k} \\
+        &= \roundBrackets{E_m-E_n}\bracket{m}{n_k} \\
+        &= -\bra{m}V\ket{n_{k-1}} + \sum_{p=1}^k E_{np}\bracket{m}{n_{k-p}} \\
+        &= -\bra{m}V\ket{n_{k-1}} + \sum_{p=1}^{k-1} E_{np}\bracket{m}{n_{k-p}}
+      \end{align*}
+      Solving this for $\bracket{m}{n_k}$ for all $k\in\setNatural$ gives us the following equations.
+      \[
+        \bracket{m}{n_k} = -\frac{\bra{m}V\ket{n_{k-1}}}{E_m-E_n} + \sum_{p=1}^{k-1} \frac{E_{np}\bracket{m}{n_{k-p}}}{E_m - E_n}
+      \]
+      Inserting now the equations for $\bracket{n}{n_k}$ and $\bracket{m}{n_k}$ into the expansion with respect to the eigenbasis yields the following for all $k\in\setNatural$.
+      \begin{align*}
+        \ket{n_k} &= -\frac{1}{2}\sum_{p=1}^{k-1} \bracket{n_p}{n_{k-p}}\ket{n} \\
+        &+ \sum_{\substack{m\in\mathscr{I}\\m\neq n}}
+          \begin{aligned}[t]
+            &\left[ -\frac{\bra{m}V\ket{n_{k-1}}}{E_m-E_n} \right. \\
+            &\left. + \sum_{p=1}^{k-1} \frac{E_{np}\bracket{m}{n_{k-p}}}{E_m - E_n} \right] \ket{m}
+          \end{aligned}
+      \end{align*}
+
+      With this we now have inductive explicit formulas with their respective starting values for $E_{nk}$ and $\ket{n_k}$ for all $k\in\setNatural$.
+      Through an iterative procedure beginning by $k=1$ one can now directly obtain the formulas for the energy and state shifts.
+      \[
+        E_{n1} = \bra{n}V\ket{n}
+      \]
+      \[
+        \ket{n_1} = - \sum_{\substack{m\in\mathscr{I} \\ m\neq n}} \frac{\bra{m}V\ket{n}}{E_m-E_n} \ket{m}
+      \]
+      The same formulas will be used for $k=2$.
+      But this time we will directly insert the equations for $E_{n1}$ and $\ket{n_1}$ obtained above.
+      \begin{align*}
+        E_{n2}
+        &= \bra{n}V\ket{n_1} - E_{n1}\bracket{n}{n_1} \\
+        &= -\sum_{\substack{m\in\mathscr{I} \\ m\neq n}} \frac{\bra{m}V\ket{n}}{E_m-E_n} \bra{n}V\ket{m}
+      \end{align*}
+      \begin{align*}
+        \ket{n_2}
+        &= -\frac{1}{2} \bracket{n_1}{n_{1}}\ket{n} \\
+        &+ \sum_{\substack{m\in\mathscr{I}\\m\neq n}}
+          \begin{aligned}[t]
+            &\left[ -\frac{\bra{m}V\ket{n_{1}}}{E_m-E_n} \right. \\
+            &\left. + \frac{E_{n1}\bracket{m}{n_{1}}}{E_m - E_n} \right] \ket{m}
+          \end{aligned}
+        \\
+        &= -\frac{1}{2} \sum_{\substack{m,k\in\mathscr{I}\\m,k\neq n}} \frac{\bra{n}V\ket{m}}{E_m-E_n} \frac{\bra{k}V\ket{n}}{E_k-E_n} \bracket{m}{k} \ket{n} \\
+        &+ \sum_{\substack{m\in\mathscr{I}\\m\neq n}}
+          \begin{aligned}[t]
+            &\left[ \sum_{\substack{k\in\mathscr{I} \\ k\neq n}} \frac{\bra{k}V\ket{n}}{E_k-E_n} \frac{\bra{m}V\ket{k}}{E_m-E_n} \right. \\
+            &\left. - \sum_{\substack{k\in\mathscr{I} \\ k\neq n}} \frac{\bra{k}V\ket{n}}{E_k-E_n} \frac{\bra{n}V\ket{n} \bracket{m}{k}}{E_m - E_n} \right] \ket{m}
+          \end{aligned}
+        \\
+        &= -\frac{1}{2} \sum_{\substack{m\in\mathscr{I}\\m\neq n}} \frac{\absolute{\bra{m}V\ket{n}}^2}{(E_m-E_n)^2} \ket{n} \\
+        &+ \sum_{\substack{m,k\in\mathscr{I}\\m,k\neq n}} \frac{\bra{k}V\ket{n} \bra{m}V\ket{k}}{(E_k-E_n)(E_m-E_n)} \ket{m} \\
+        &- \sum_{\substack{m\in\mathscr{I}\\m\neq n}} \frac{\bra{n}V\ket{n} \bra{m}V\ket{n}}{(E_m-E_n)^2} \ket{m}
+      \end{align*}
+      This proves the proposition.
+      \hfill$\square{}$
+    % section problem_18_perturbation_theory (end)
+  \end{multicols}
+
+\end{document}

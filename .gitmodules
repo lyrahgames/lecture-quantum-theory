@@ -1,0 +1,3 @@
+[submodule "ii/exercises/11/latex-utilities"]
+	path = ii/exercises/11/latex-utilities
+	url = git@github.com:lyrahgames/latex-utilities.git

@@ -1,0 +1,7 @@
+*
+!latex-utilities
+
+!*.tex
+!*.pdf
+
+!.gitignore
