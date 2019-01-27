@@ -37,9 +37,9 @@
 
   \exerciseHeader
 
-  \begin{multicols}{2}
-    \section*{Problem 18: Perturbation Theory} % (fold)
-    \label{sec:problem_18_perturbation_theory}
+  \section*{Problem 18: Perturbation Theory} % (fold)
+  \label{sec:problem_18_perturbation_theory}
+    \begin{multicols}{2}
       Let $\roundBrackets{\mathscr{H},\bracket{\cdot}{\cdot}}$ be a separable Hilbert space which is modeling the perturbed and the unperturbed system.
       For the formal definition of both systems we will define $\mathscr{I}$ as a countable index set with the same cardinality as an orthonormal basis of $\mathscr{H}$.
 
@@ -269,14 +269,15 @@
       \end{align*}
       This proves the proposition.
       \hfill$\square{}$
-    % section problem_18_perturbation_theory (end)
-  \end{multicols}
+    \end{multicols}
+  % section problem_18_perturbation_theory (end)
 
   \newpage
 
   \section*{Problem 20} % (fold)
   \label{sec:problem_20}
     \begin{multicols}{2}
+      \paragraph{Preliminaries:}
       Let $\mathscr{L}^2(\setReal)$ be the space of square-integrable functions with domain $\setReal$ and Lebesgue-measure λ.
       \[
         \mathscr{L}^2(\setReal) \define \set{\function{f}{\setReal}{\setComplex}}{\integral{\setReal}{}{\absolute{f}^2}{λ} < \infty}
@@ -308,13 +309,14 @@
         E_n \define εn^2
       \]
 
+      \paragraph{Hilbert Space:}
       For three identical particles the following space $\mathscr{H}$ builds a superset of the Hilbert space for these particles.
       \[
         \mathscr{H} \define \mathscr{L}^2(\setReal) \otimes \mathscr{L}^2(\setReal) \otimes \mathscr{L}^2(\setReal) \cong \mathscr{L}^2\roundBrackets{\setReal^3}
       \]
-      To define the scalar product for this space we first define the product state for all $\ket{f},\ket{g},\ket{h}\in\mathscr{L}^2(\setReal)$.
+      To define the scalar product for this space we first define the product state for all $\ket{φ_1},\ket{φ_2},\ket{φ_3}\in\mathscr{L}^2(\setReal)$.
       \[
-        \ket{fgh} \define \ket{f}\otimes\ket{g}\otimes\ket{h}
+        \ket{φ_1φ_2φ_3} \define \ket{φ_1}\otimes\ket{φ_2}\otimes\ket{φ_3}
       \]
       Please note, that for convenience we will use function overloading to define the scalar product.
       \[
@@ -323,29 +325,34 @@
       \[
         \bracket{φ_1φ_2φ_3}{ϑ_1ϑ_2ϑ_3} \define \bracket{φ_1}{ϑ_1} \bracket{φ_2}{ϑ_2} \bracket{φ_3}{ϑ_3}
       \]
+      This scalar product will also be used for the Hilbert space of the three identical particles, which is possible because its a subset of $\mathscr{H}$.
 
       All particles are Bosons because of their spin which is equal to zero.
       Therefore $\mathscr{H}$ has to be symmetrized such that all possible wave functions are symmetric.
-      We call $\mathscr{H}_\mathrm{S}$ the Hilbert space of these three identical Bosons.
+      We call $\roundBrackets{\mathscr{H}_\mathrm{S},\bracket{\cdot}{\cdot}}$ the Hilbert space of these three identical Bosons.
       \[
         \mathscr{H}_\mathrm{S} \define \set{\ket{φ}\in\mathscr{H}}{\forall π\in\mathrm{S}_3:\ P(π)\ket{φ}=\ket{φ}} \subset \mathscr{H}
       \]
       Here, $\mathrm{S}_3$ is the three-dimensional permutation group and $P(π)$ the related permutation operator for $π\in\mathrm{S}_3$.
 
+      \paragraph{Eigenbasis:}
       The three particles do not interact.
       Hence, the Hamiltonian $\function{H_\mathrm{S}}{\mathscr{H}_\mathrm{S}}{\mathscr{H}_\mathrm{S}}$ for $\mathscr{H}_\mathrm{S}$ can be stated as follows.
       \[
         H_\mathrm{S} \define H\otimes\mathds{1}\otimes\mathds{1} + \mathds{1}\otimes H\otimes\mathds{1} + \mathds{1}\otimes\mathds{1}\otimes H
       \]
-      We can now conclude that for all $n_1,n_2,n_3\in\setNatural$ the states $\ket{n_1n_2n_3}$ are eigenstates of $H_\mathrm{S}\vert_{\mathscr{H}}$ with eigenvalue $E_{n_1n_2n_3}$ and are building an orthonormal basis of $\mathscr{H}$.
+      We can now conclude that for all $n_1,n_2,n_3\in\setNatural$ the states $\ket{n_1n_2n_3}$ are eigenstates of $H_\mathrm{S}\vert_{\mathscr{H}}$ with eigenvalue $E_{n_1n_2n_3}$.
       \begin{align*}
-        &H_\mathrm{S}\ket{n_1n_2n_3} \\
+        H_\mathrm{S}\ket{n_1n_2n_3}
         &= H\ket{n_1}\otimes\ket{n_2}\otimes\ket{n_3} \\
         &+ \ket{n_1}\otimes H\ket{n_2}\otimes\ket{n_3} \\
         &+ \ket{n_1}\otimes\ket{n_2}\otimes H\ket{n_3} \\
         &= \roundBrackets{E_{n_1} + E_{n_2} + E_{n_3}} \ket{n_1n_2n_3}
       \end{align*}
-      Additionally, for all $m_1,m_2,m_3\in\setNatural$ the following equation shows that the states are orthonormal.
+      \[
+        E_{n_1n_2n_3} \define E_{n_1} + E_{n_2} + E_{n_3}
+      \]
+      Additionally, for all $m_1,m_2,m_3\in\setNatural$ the following equation shows that the states are orthonormal and consequently are building an orthonormal basis of $\mathscr{H}$.
       \begin{align*}
         &\bracket{m_1m_2m_3}{n_1n_2n_3} \\
         &= \bracket{m_1}{n_1}\bracket{m_2}{n_2}\bracket{m_3}{n_3} \\
@@ -359,20 +366,85 @@
       \]
       Due to the linear combination and the permutation we are now making sure that the states are building a symmetric eigenbasis of $\mathscr{H}_\mathrm{S}$ with respect to $H_\mathrm{S}$.
       Of course, these symmetric states are not normalized.
+      To normalize the states, we choose $n_1,n_2,n_3\in\setNatural$ to be arbitrary.
       \begin{align*}
         &\prescript{}{\mathrm{S}}{\bracket{n_1n_2n_3}{n_1n_2n_3}_\mathrm{S}} \\
-        &= \sum_{π,σ\in\mathrm{S}_3} \bracket{n_{π(1)}n_{π(2)}n_{π(3)}}{n_{σ(1)}n_{σ(2)}n_{σ(3)}}
+        &= \sum_{π,σ\in\mathrm{S}_3} \bracket{n_{π(1)}n_{π(2)}n_{π(3)}}{n_{σ(1)}n_{σ(2)}n_{σ(3)}} \\
+        &= \sum_{π,σ\in\mathrm{S}_3} δ_{n_{π(1)}n_{σ(1)}} δ_{n_{π(2)}n_{σ(2)}} δ_{n_{π(3)}n_{σ(3)}}
       \end{align*}
       We have to sum over $3!\cdot3!=36$ terms and at least six of them will be one because the permutations $σ$ and $π$ can be the same.
-      If $n_1\neq n_2\neq n_3 \neq n_1$ then it is clear that only these six terms can contribute to the actual sum.
-      If two values are the same then we can interchange them which doubles the count of non-zero terms.
-      If all of these three values are the same then every term in the sum has to be one.
+
+      \paragraph{Case $n_1\neq n_2\neq n_3 \neq n_1$:}
+      Then it is clear that only these six terms can contribute to the actual sum because for every permutation $π\in\mathrm{S}_3$ we compute the result below.
+      \begin{align*}
+        &\sum_{σ\in\mathrm{S}_3}\bracket{n_{π(1)}n_{π(2)}n_{π(3)}}{n_{σ(1)}n_{σ(2)}n_{σ(3)}} \\
+        &= \sum_{σ\in\mathrm{S}_3} δ_{{π(1)}{σ(1)}} δ_{{π(2)}{σ(2)}} δ_{{π(3)}{σ(3)}}
+        = 1
+      \end{align*}
+      The normalization in this case is straightforward.
+      \[
+        \ket{n_1n_2n_3}_{\tilde{\mathrm{S}}} \define \frac{1}{\sqrt{3!}}\ket{n_1n_2n_3}_\mathrm{S}
+      \]
+
+      \paragraph{Case $n_1\neq n_2 = n_3$:}
+      If two values are the same then a permutation interchanging those values will not change the actual state.
+      This can be stated as follows for all permutations $π\in\mathrm{S}_3$.
+      \begin{align*}
+        &\sum_{σ\in\mathrm{S}_3}\bracket{n_{π(1)}n_{π(2)}n_{π(3)}}{n_{σ(1)}n_{σ(2)}n_{σ(3)}} \\
+        &= \sum_{σ\in\mathrm{S}_3}
+          \begin{aligned}[t]
+            & \left( δ_{{π(1)}{σ(1)}} δ_{{π(2)}{σ(2)}} δ_{{π(3)}{σ(3)}} \right. \\
+            & \left. + δ_{{π(1)}{σ(1)}} δ_{{π(2)}{σ(3)}} δ_{{π(3)}{σ(2)}} \right)
+          \end{aligned}
+        \\
+        &= 2
+      \end{align*}
+      In this case the normalization factor changes and the normalized state is defined below.
+      \[
+        \ket{n_1n_2n_3}_{\tilde{\mathrm{S}}} \define \frac{1}{\sqrt{3!\cdot 2!}}\ket{n_1n_2n_3}_\mathrm{S}
+      \]
+
+      \paragraph{Case $n_1=n_2=n_3$:}
+      If all of these three values are the same then every term in the sum has to be one because for every permutation $π\in\mathrm{S}_3$ we can conclude the following.
+      \begin{align*}
+        &\sum_{σ\in\mathrm{S}_3}\bracket{n_{π(1)}n_{π(2)}n_{π(3)}}{n_{σ(1)}n_{σ(2)}n_{σ(3)}} \\
+        &= \sum_{σ\in\mathrm{S}_3}\sum_{κ\in\mathrm{S}_3} δ_{{π(1)}{σ(κ(1))}} δ_{{π(2)}{σ(κ(2))}} δ_{{π(3)}{σ(κ(3))}} \\
+        &= 6
+      \end{align*}
+      Of course, this is a direct consequence of the following equation for all $σ\in\mathrm{S}_3$.
+      \[
+        \ket{n_1n_2n_3} = \ket{n_{σ(1)}n_{σ(2)}n_{σ(3)}}
+      \]
+      Hence, the normalization in this case can formulated as follows.
+      \[
+        \ket{n_1n_2n_3}_{\tilde{\mathrm{S}}} \define \frac{1}{\sqrt{3!\cdot 3!}}\ket{n_1n_2n_3}_\mathrm{S}
+      \]
+
+      \paragraph{General Normalization:}
+      The results obtained here can be generalized.
+      Define $p_n\in\setNatural_0$ to be the count of particles in the state $\ket{n}$ for all $n\in\setNatural$.
+      Because we have three particles the following equation is fulfilled.
+      \[
+        \sum_{n\in\setNatural} p_n = 3
+      \]
+      Particles in the same state can be interchanged.
+      There are $p_n!$ possible permutations for every $n\in\setNatural$ such that the state is not changed.
+      Thus, for every permutation $π\in\mathrm{S}_3$ the following holds.
+      \[
+        \sum_{σ\in\mathrm{S}_3}\bracket{n_{π(1)}n_{π(2)}n_{π(3)}}{n_{σ(1)}n_{σ(2)}n_{σ(3)}}
+        = \prod_{n\in\setNatural} p_n!
+      \]
+      With this we could have also defined the following general normalization rule.
       \[
         \ket{n_1n_2n_3}_{\tilde{\mathrm{S}}} \define \frac{1}{\sqrt{3!\prod_{n\in\setNatural}p_n!}} \ket{n_1n_2n_3}_\mathrm{S}
       \]
+      The set $\set{\ket{n_1n_2n_3}_{\tilde{\mathrm{S}}}}{n_1,n_2,n_3\in\setNatural}$ is therefore building an orthonormal eigenbasis of $\mathscr{H}_\mathrm{S}$ with respect to $H_\mathrm{S}$.
+      Please note, that the states are symmetric and therefore the order of $n_1$, $n_2$ and $n_3$ can be ignored.
+      It suffices to describe the symmetric state by the numbers $(p_n)_{n\in\setNatural}$.
 
-      As shown above for a normalized eigenstate $\ket{n_1n_2n_3}_{\tilde{\mathrm{S}}}$ of the Hamiltonian $H_\mathrm{S}$ with have the energy $E_{n_1n_2n_3}$ as an eigenvalue.
-      Therefore we can find the five states with the lowest energy.
+      \paragraph{Lowest Energy States:}
+      As shown above for a normalized eigenstate $\ket{n_1n_2n_3}_{\tilde{\mathrm{S}}}$ of the Hamiltonian $H_\mathrm{S}$ with have the energy $E_{n_1n_2n_3}$ as an eigenvalue for all $n_1,n_2,n_3\in\setNatural$.
+      Therefore we can find the five states with the lowest energy by direct computation.
       \begin{align*}
         &\ket{111}_{\tilde{\mathrm{S}}}: & E_{111} &= 3ε \\
         &\ket{112}_{\tilde{\mathrm{S}}}: & E_{112} &= 6ε \\
