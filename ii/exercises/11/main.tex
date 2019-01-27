@@ -272,4 +272,114 @@
     % section problem_18_perturbation_theory (end)
   \end{multicols}
 
+  \newpage
+
+  \section*{Problem 20} % (fold)
+  \label{sec:problem_20}
+    \begin{multicols}{2}
+      Let $\mathscr{L}^2(\setReal)$ be the space of square-integrable functions with domain $\setReal$ and Lebesgue-measure λ.
+      \[
+        \mathscr{L}^2(\setReal) \define \set{\function{f}{\setReal}{\setComplex}}{\integral{\setReal}{}{\absolute{f}^2}{λ} < \infty}
+      \]
+      We define the typical scalar product for such a space as follows.
+      \[
+        \function{\bracket{\cdot}{\cdot}}{\mathscr{L}^2\times\mathscr{L}^2}{\setComplex}
+        \separate
+        \bracket{f}{g} \define \integral{\setReal}{}{\bar{f}g}{λ}
+      \]
+      The Hilbert space for a single particle with mass $m\in\setReal^+$ in an infinite potential well with size $a\in\setReal^+$ centered at the origin is described by $\roundBrackets{\mathscr{L}^2(\setReal), \bracket{\cdot}{\cdot}}$.
+      For convenience, we define the following constants.
+      \[
+        ω \define \frac{π}{2a}
+        \separate
+        ε \define \frac{\hbar^2ω^2}{2m}
+        \separate
+        z \define \frac{1}{\sqrt{a}}
+      \]
+      With $\ket{n}\in\mathscr{L}^2(\setReal)$, we denote the eigenstates of the Hamiltonian $\function{H}{\mathscr{L}^2(\setReal)}{\mathscr{L}^2(\setReal)}$ with eigenvalues $E_n$ for all $n\in\setNatural$.
+      \[
+        \ket{n} \define
+        \begin{cases}
+          z \cos(nω\cdot) &: n=2k-1 \quad \text{for } k\in\setNatural \\
+          z \sin(nω\cdot) &: n=2k \quad \text{for } k\in\setNatural
+        \end{cases}
+      \]
+      \[
+        E_n \define εn^2
+      \]
+
+      For three identical particles the following space $\mathscr{H}$ builds a superset of the Hilbert space for these particles.
+      \[
+        \mathscr{H} \define \mathscr{L}^2(\setReal) \otimes \mathscr{L}^2(\setReal) \otimes \mathscr{L}^2(\setReal) \cong \mathscr{L}^2\roundBrackets{\setReal^3}
+      \]
+      To define the scalar product for this space we first define the product state for all $\ket{f},\ket{g},\ket{h}\in\mathscr{L}^2(\setReal)$.
+      \[
+        \ket{fgh} \define \ket{f}\otimes\ket{g}\otimes\ket{h}
+      \]
+      Please note, that for convenience we will use function overloading to define the scalar product.
+      \[
+        \function{\bracket{\cdot}{\cdot}}{\mathscr{H}\times\mathscr{H}}{\setComplex}
+      \]
+      \[
+        \bracket{φ_1φ_2φ_3}{ϑ_1ϑ_2ϑ_3} \define \bracket{φ_1}{ϑ_1} \bracket{φ_2}{ϑ_2} \bracket{φ_3}{ϑ_3}
+      \]
+
+      All particles are Bosons because of their spin which is equal to zero.
+      Therefore $\mathscr{H}$ has to be symmetrized such that all possible wave functions are symmetric.
+      We call $\mathscr{H}_\mathrm{S}$ the Hilbert space of these three identical Bosons.
+      \[
+        \mathscr{H}_\mathrm{S} \define \set{\ket{φ}\in\mathscr{H}}{\forall π\in\mathrm{S}_3:\ P(π)\ket{φ}=\ket{φ}} \subset \mathscr{H}
+      \]
+      Here, $\mathrm{S}_3$ is the three-dimensional permutation group and $P(π)$ the related permutation operator for $π\in\mathrm{S}_3$.
+
+      The three particles do not interact.
+      Hence, the Hamiltonian $\function{H_\mathrm{S}}{\mathscr{H}_\mathrm{S}}{\mathscr{H}_\mathrm{S}}$ for $\mathscr{H}_\mathrm{S}$ can be stated as follows.
+      \[
+        H_\mathrm{S} \define H\otimes\mathds{1}\otimes\mathds{1} + \mathds{1}\otimes H\otimes\mathds{1} + \mathds{1}\otimes\mathds{1}\otimes H
+      \]
+      We can now conclude that for all $n_1,n_2,n_3\in\setNatural$ the states $\ket{n_1n_2n_3}$ are eigenstates of $H_\mathrm{S}\vert_{\mathscr{H}}$ with eigenvalue $E_{n_1n_2n_3}$ and are building an orthonormal basis of $\mathscr{H}$.
+      \begin{align*}
+        &H_\mathrm{S}\ket{n_1n_2n_3} \\
+        &= H\ket{n_1}\otimes\ket{n_2}\otimes\ket{n_3} \\
+        &+ \ket{n_1}\otimes H\ket{n_2}\otimes\ket{n_3} \\
+        &+ \ket{n_1}\otimes\ket{n_2}\otimes H\ket{n_3} \\
+        &= \roundBrackets{E_{n_1} + E_{n_2} + E_{n_3}} \ket{n_1n_2n_3}
+      \end{align*}
+      Additionally, for all $m_1,m_2,m_3\in\setNatural$ the following equation shows that the states are orthonormal.
+      \begin{align*}
+        &\bracket{m_1m_2m_3}{n_1n_2n_3} \\
+        &= \bracket{m_1}{n_1}\bracket{m_2}{n_2}\bracket{m_3}{n_3} \\
+        &= δ_{m_1n_1}δ_{m_2n_2}δ_{m_3n_3}
+      \end{align*}
+      But these states are in general not symmetric and may not lie in $\mathscr{H}_\mathrm{S}$ which would violate the condition that the system consists of three identical Bosons.
+      Like $\mathscr{H}$ had to be symmetrized, the states also have to be symmetrized.
+      For all $n_1,n_2,n_3\in\setNatural$ we define the symmetric states as follows.
+      \[
+        \ket{n_1n_2n_3}_\mathrm{S}\define \sum_{σ\in\mathrm{S_3}}\ket{n_{σ(1)}n_{σ(2)}n_{σ(3)}}
+      \]
+      Due to the linear combination and the permutation we are now making sure that the states are building a symmetric eigenbasis of $\mathscr{H}_\mathrm{S}$ with respect to $H_\mathrm{S}$.
+      Of course, these symmetric states are not normalized.
+      \begin{align*}
+        &\prescript{}{\mathrm{S}}{\bracket{n_1n_2n_3}{n_1n_2n_3}_\mathrm{S}} \\
+        &= \sum_{π,σ\in\mathrm{S}_3} \bracket{n_{π(1)}n_{π(2)}n_{π(3)}}{n_{σ(1)}n_{σ(2)}n_{σ(3)}}
+      \end{align*}
+      We have to sum over $3!\cdot3!=36$ terms and at least six of them will be one because the permutations $σ$ and $π$ can be the same.
+      If $n_1\neq n_2\neq n_3 \neq n_1$ then it is clear that only these six terms can contribute to the actual sum.
+      If two values are the same then we can interchange them which doubles the count of non-zero terms.
+      If all of these three values are the same then every term in the sum has to be one.
+      \[
+        \ket{n_1n_2n_3}_{\tilde{\mathrm{S}}} \define \frac{1}{\sqrt{3!\prod_{n\in\setNatural}p_n!}} \ket{n_1n_2n_3}_\mathrm{S}
+      \]
+
+      As shown above for a normalized eigenstate $\ket{n_1n_2n_3}_{\tilde{\mathrm{S}}}$ of the Hamiltonian $H_\mathrm{S}$ with have the energy $E_{n_1n_2n_3}$ as an eigenvalue.
+      Therefore we can find the five states with the lowest energy.
+      \begin{align*}
+        &\ket{111}_{\tilde{\mathrm{S}}}: & E_{111} &= 3ε \\
+        &\ket{112}_{\tilde{\mathrm{S}}}: & E_{112} &= 6ε \\
+        &\ket{122}_{\tilde{\mathrm{S}}}: & E_{122} &= 9ε \\
+        &\ket{113}_{\tilde{\mathrm{S}}}: & E_{113} &= 11ε \\
+        &\ket{222}_{\tilde{\mathrm{S}}}: & E_{222} &= 12ε
+      \end{align*}
+    \end{multicols}
+  % section problem_20 (end)
 \end{document}
