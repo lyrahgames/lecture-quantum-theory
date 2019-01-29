@@ -1,5 +1,6 @@
 \documentclass[10pt,fleqn]{article}
 \usepackage{standard}
+\usepackage{microtype}
 
 \geometry{left=27mm,right=27mm,top=40mm,bottom=30mm}
 \allowdisplaybreaks
@@ -42,9 +43,11 @@
   \section*{Problem 18: Perturbation Theory} % (fold)
   \label{sec:problem_18_perturbation_theory}
     \begin{multicols}{2}
+      \paragraph{Preliminaries:}
       Let $\roundBrackets{\mathscr{H},\bracket{\cdot}{\cdot}}$ be a separable Hilbert space which is modeling the perturbed and the unperturbed system.
       For the formal definition of both systems we will define $\mathscr{I}$ as a countable index set with the same cardinality as an orthonormal basis of $\mathscr{H}$.
 
+      \paragraph{Conditions of the Unperturbed System:}
       The Hamiltonian $\function{H}{\mathscr{H}}{\mathscr{H}}$ of the unperturbed system is assumed to have a discrete spectrum of real Energies.
       \[
         σ(H) = \set{E_n}{n\in\mathscr{I}}\subset\setReal
@@ -75,6 +78,7 @@
       % \]
       $H$ itself is non-degenerate and that the set $\set{\ket{n}}{n\in\mathscr{I}}$ is building an orthonormal basis of the Hilbert space $\mathscr{H}$.
 
+      \paragraph{Modelling the Perturbation:}
       Further, we describe the perturbation of the system by the self-adjoint operator $\function{V}{\mathscr{H}}{\mathscr{H}}$.
       For the application of $V$ to $H$ we will use an interaction strength parameter which is introduced by using a function $\tilde{H}$ as shown below.
       \[
@@ -82,9 +86,10 @@
         \separate
         \tilde{H}(λ) \define H + λ V
       \]
-      The continuous parameterization will enable us to analyze the solution of the perturbed system $\tilde{H}(λ)$ in form of a series expansion in terms of λ.
+      The continuous parameterization will enable us to analyze the solution of the perturbed system $\tilde{H}(λ)$ in form of a series expansion in terms of λ for all $λ\in[0,1]$.
       Please note that $\tilde{H}(1)$ is describing the system under the full perturbation.
 
+      \paragraph{Conditions of the Perturbation:}
       We will assume that the contribution of $V$ is small and therefore not changes the essential properties.
       Hence, we choose $λ\in[0,1]$ to be arbitrary.
       $\tilde{H}(λ)$ has a discrete spectrum.
@@ -93,12 +98,15 @@
       \[
         σ\roundBrackets{\tilde{H}(λ)} = \set{E_n(λ)}{n\in\mathscr{I}} \subset \setReal
       \]
-      $\tilde{H}(λ)$ is non-degenerate and we again assume its eigenstates to be normalized and therefore to build an orthonormal eigenbasis with respect to $\tilde{H}(λ)$
+      $\tilde{H}(λ)$ is non-degenerate and we again assume its eigenstates to be normalized and therefore to build an orthonormal eigenbasis of $\mathscr{H}$ with respect to $\tilde{H}(λ)$.
+      So for all $n\in\mathscr{I}$ the following is true.
       \footnote{%
         The non-degeneracy of $\tilde{H}(λ)$ for all $λ\in[0,1]$ is not used explicitly.
         Therefore the derived formulas should be valid even if the perturbation described by $V$ introduces degeneracies into the non-degenerate system described by $H$.%
-      }.
-      So for all $n\in\mathscr{I}$ it holds that
+      }
+      \footnote{%
+        There is another normalization convention $\bracket{n}{n(λ)} = 1$ that we will discuss at the end.
+      }
       \[
         \tilde{H}(λ) \ket{n(λ)} = E_n(λ) \ket{n(λ)}
       \]
@@ -108,7 +116,8 @@
       \[
         \bracket{n(λ)}{n(λ)} = 1
       \]
-      Additionally, we assume that we are able to expand $E_n(λ)$ and $\ket{n(λ)}$ in terms of $λ$ for all $λ\in[0,1]$ for some constant coefficients.
+      Additionally, we assume that we are able to expand $E_n(λ)$ and $\ket{n(λ)}$ in terms of $λ$ for all $λ\in[0,1]$.
+      Here the coefficients $E_{nk}$ are called the energy shifts and $\ket{n_k}$ are called the state shifts for all $n\in\mathscr{I}$ and $k\in\setNatural_0$.
       \[
         \set{E_{nk}}{}_{k=0}^\infty \subset \setReal
         \separate
@@ -120,40 +129,49 @@
         \ket{n(λ)} = \sum_{k=0}^\infty λ^k \ket{n_k}
       \]
 
+      \paragraph{Recursive Formulas for Correction Terms:}
       Taking the series expansions one can now derive inductive formulas for the coefficients.
       For that let $n\in\mathscr{I}$ and $λ\in[0,1]$ be arbitrary.
-      We will start with the left-hand side of the eigenvalue equation.
-      \begin{align*}
-        &\tilde{H}(λ)\ket{n(λ)}\\
-        &= (H+λV)\sum_{k=0}^\infty λ^k \ket{n_k} \\
-        &= \sum_{k=0}^\infty λ^k H\ket{n_k} + \sum_{k=0}^\infty λ^{k+1} V\ket{n_k} \\
-        &= \sum_{k=0}^\infty λ^{k} H\ket{n_k} + \sum_{k=1}^\infty λ^{k} V\ket{n_{k-1}} \\
-        &= H\ket{n_0} + \sum_{k=1}^\infty λ^{k} \roundBrackets{H\ket{n_k} + V\ket{n_{k-1}}}
-      \end{align*}
-      For the right-hand side of the eigenvalue equation we do get the following.
-      \begin{align*}
-        &E_n(λ)\ket{n(λ)} \\
-        &= \roundBrackets{\sum_{k=0}^\infty λ^k E_{nk}}\roundBrackets{\sum_{k=0}^\infty λ^k \ket{n_k}} \\
-        &= \sum_{p,q=0}^\infty λ^{p+q} E_{np}\ket{n_q} \\
-        &= \sum_{k=0}^\infty λ^k \sum_{p=0}^k E_{np}\ket{n_{k-p}}
-      \end{align*}
-      Looking at the eigenvalue equation as a whole we are now able to do a comparison of coefficients.
+      We will start by computing the left-hand side of the Schrödinger equation for the perturbed system.
+      \[
+        \begin{aligned}
+          \tilde{H}(λ)\ket{n(λ)}
+          &= (H+λV)\sum_{k=0}^\infty λ^k \ket{n_k} \\
+          &= \sum_{k=0}^\infty λ^k H\ket{n_k} + \sum_{k=0}^\infty λ^{k+1} V\ket{n_k} \\
+          &= \sum_{k=0}^\infty λ^{k} H\ket{n_k} + \sum_{k=1}^\infty λ^{k} V\ket{n_{k-1}} \\
+          &= H\ket{n_0} + \sum_{k=1}^\infty λ^{k} \roundBrackets{H\ket{n_k} + V\ket{n_{k-1}}}
+        \end{aligned}
+      \]
+      For the right-hand side of the Schrödinger equation for the perturbed system we can do something similar.
+      \[
+        \begin{aligned}
+          E_n(λ)\ket{n(λ)}
+          &= \roundBrackets{\sum_{k=0}^\infty λ^k E_{nk}}\roundBrackets{\sum_{k=0}^\infty λ^k \ket{n_k}} \\
+          &= \sum_{p,q=0}^\infty λ^{p+q} E_{np}\ket{n_q} \\
+          &= \sum_{k=0}^\infty λ^k \sum_{p=0}^k E_{np}\ket{n_{k-p}}
+        \end{aligned}
+      \]
+      Looking at the Schrödinger equation as a whole, we are now able to do a comparison of coefficients.
       This results in two equations.
-      One for the starting values and one for all $k\in\setNatural$.
+      One for the starting values $E_{n0}$ and $\ket{n_0}$ and one recursive equation for all $k\in\setNatural$.
       \[
         H\ket{n_0} = E_{n0}\ket{n_0}
       \]
       \[
         H\ket{n_k} + V\ket{n_{k-1}} = \sum_{p=0}^k E_{np}\ket{n_{k-p}}
       \]
-      After inserting the series expansions we can do something similar for the normalization condition.
-      \begin{align*}
-        1 &= \bracket{n(λ)}{n(λ)} \\
-        &= \sum_{p,q=0} λ^{p+q} \bracket{n_p}{n_q} \\
-        &= \sum_{k=0}^\infty λ^k \sum_{p=0}^k \bracket{n_p}{n_{k-p}}
-      \end{align*}
+
+      \paragraph{Recursive Formulas of Normalization:}
+      After inserting the series expansions into the Schrödinger equation we can do the same for the normalization condition.
+      \[
+        \begin{aligned}
+          1 = \bracket{n(λ)}{n(λ)}
+          &= \sum_{p,q=0} λ^{p+q} \bracket{n_p}{n_q} \\
+          &= \sum_{k=0}^\infty λ^k \sum_{p=0}^k \bracket{n_p}{n_{k-p}}
+        \end{aligned}
+      \]
       Again we do comparison of coefficients and get two equations.
-      One for the starting value and one for all $k\in\setNatural$.
+      One for the starting value $\bracket{n_0}{n_0}$ and one recursive equation for all $k\in\setNatural$.
       \[
         \bracket{n_0}{n_0} = 1
       \]
@@ -166,9 +184,12 @@
       Hence, without loss of generality, we may assume $\bracket{n_0}{n_k}=\Re(\bracket{n_0}{n_k})\in\setReal$ is purely real.
       For all $k\in\setNatural$ the second equation becomes the following.
       \[
-        \bracket{n}{n_k} = -\frac{1}{2}\sum_{p=1}^{k-1} \bracket{n_p}{n_{k-p}}
+        % \tcboxmath{
+          \bracket{n}{n_k} = -\frac{1}{2}\sum_{p=1}^{k-1} \bracket{n_p}{n_{k-p}}
+        % }
       \]
 
+      \paragraph{Derivation of Energy Shifts:}
       After deriving these formulas we will first take a look at the starting value equations.
       \[
         H\ket{n_0} = E_{n0}\ket{n_0}
@@ -176,65 +197,95 @@
         \bracket{n_0}{n_0} = 1
       \]
       We see that $\ket{n_0}$ is a normalized eigenfunction of $H$ with the eigenvalue $E_{n0}$.
-      Therefore we can state the following.
+      Therefore we can state that $E_{n0}$ lies in the spectrum of $H$ and $\ket{n_0}$ is the unique normalized eigenstate of $H$ with eigenvalue $E_{n0}$ and therefore belongs to the orthornormal basis.
       \[
         E_{n0} \in σ(H)
         \separate
         \ket{n_0} \in \set{\ket{m}}{m\in\mathscr{I}}
       \]
-      We are free to choose the specific eigenfunction because this is the freedom of permuting the eigenstates.
+      We are free to choose the specific eigenstate because this is the freedom of permuting the eigenstates.
       But for consistency we will use the straightforward definition.
       \[
         \ket{n_0} \define \ket{n}
         \separate
         E_{n0} \define E_n
       \]
-
-      Now we take the inductive formula of the eigenvalue equation and insert the starting values to get an operator equation for $\ket{n_k}$ for all $k\in\setNatural$.
+      Now we take the recursive equation for the energy and state shifts and insert the starting values to get an operator equation for $\ket{n_k}$ for all $k\in\setNatural$.
       \[
         \roundBrackets{H-E_n}\ket{n_k} = -V\ket{n_{k-1}} + \sum_{p=1}^{k} E_{np}\ket{n_{k-p}}
       \]
-      But this equation gives us some information about the energy shift $E_{nk}$ as well.
-      For that we will apply $\bra{n}$ on the equation for all $k\in\setNatural$.
-      \begin{align*}
-        0
-        &= \bra{n}\roundBrackets{H-E_n}\ket{n_k} \\
-        &= -\bra{n}V\ket{n_{k-1}} + \sum_{p=1}^k E_{np}\bracket{n}{n_{k-p}}
-      \end{align*}
-      By solving the equation for $E_{nk}$ one gets the following for all $k\in\setNatural$.
+      But this equation gives us all information about the energy shift $E_{nk}$ as well.
+      To see that we will apply $\bra{n}$ on the recursive equation for all $k\in\setNatural$ and use that $\ket{n}$ is an eigenstate of $H$ with eigenvalue $E_n$.
       \[
-        E_{nk} = \bra{n}V\ket{n_{k-1}} - \sum_{p=1}^{k-1} E_{np}\bracket{n}{n_{k-p}}
+        \begin{aligned}
+          0
+          &= \bra{n}\roundBrackets{H-E_n}\ket{n_k} \\
+          &= -\bra{n}V\ket{n_{k-1}} + \sum_{p=1}^k E_{np}\bracket{n}{n_{k-p}}
+        \end{aligned}
       \]
+      By solving the equation for $E_{nk}$ one gets the following explicit recursive formula for the energy shifts $E_{nk}$ for all $k\in\setNatural$.
+      \[
+        % \tcboxmath{
+          E_{nk} = \bra{n}V\ket{n_{k-1}} - \sum_{p=1}^{k-1} E_{np}\bracket{n}{n_{k-p}}
+        % }
+      \]
+      For this derivation we have only used the starting values of the normalization condition.
+      These will be the same for both normalizations and therefore the explicit recursive formula for the energy shifts is also true for both normalizations.
+
+      \paragraph{Derivation of State Shifts:}
       For the eigenstates $\ket{n_k}$ we basically have to invert the operator $H-E_n$.
       But due to its singularity this is not possible.
       For that reason we will first express $\ket{n_k}$ in terms of the orthonormal eigenbasis of $\mathscr{H}$ with respect to $H$.
-      \begin{align*}
-        \ket{n_k}
-        &= \sum_{m\in\mathscr{I}} \bracket{m}{n_k} \ket{m} \\
-        &= \bracket{n}{n_k}\ket{n} + \sum_{\substack{m\in\mathscr{I}\\m\neq n}} \bracket{m}{n_k} \ket{m}
-      \end{align*}
+      \[
+        \begin{aligned}
+          \ket{n_k}
+          &= \sum_{m\in\mathscr{I}} \bracket{m}{n_k} \ket{m} \\
+          &= \bracket{n}{n_k}\ket{n} + \sum_{\substack{m\in\mathscr{I}\\m\neq n}} \bracket{m}{n_k} \ket{m}
+        \end{aligned}
+      \]
       Let now $m\in\mathscr{I}$ with $m\neq n$ be arbitrary as well and apply $\bra{m}$ on the operator equation for $\ket{n_k}$ for all $k\in\setNatural$.
-      \begin{align*}
-        &\bra{m}\roundBrackets{H-E_n}\ket{n_k} \\
-        &= \roundBrackets{E_m-E_n}\bracket{m}{n_k} \\
-        &= -\bra{m}V\ket{n_{k-1}} + \sum_{p=1}^k E_{np}\bracket{m}{n_{k-p}} \\
-        &= -\bra{m}V\ket{n_{k-1}} + \sum_{p=1}^{k-1} E_{np}\bracket{m}{n_{k-p}}
-      \end{align*}
-      Solving this for $\bracket{m}{n_k}$ for all $k\in\setNatural$ gives us the following equations.
+      \[
+        \begin{aligned}
+          \bra{m}&\roundBrackets{H-E_n}\ket{n_k}
+          = \roundBrackets{E_m-E_n}\bracket{m}{n_k} \\
+          &= -\bra{m}V\ket{n_{k-1}} + \sum_{p=1}^k E_{np}\bracket{m}{n_{k-p}} \\
+          &= -\bra{m}V\ket{n_{k-1}} + \sum_{p=1}^{k-1} E_{np}\bracket{m}{n_{k-p}}
+        \end{aligned}
+      \]
+      Solving this expression for $\bracket{m}{n_k}$ for all $k\in\setNatural$ gives us the following equations.
       \[
         \bracket{m}{n_k} = -\frac{\bra{m}V\ket{n_{k-1}}}{E_m-E_n} + \sum_{p=1}^{k-1} \frac{E_{np}\bracket{m}{n_{k-p}}}{E_m - E_n}
       \]
-      Inserting now the equations for $\bracket{n}{n_k}$ and $\bracket{m}{n_k}$ into the expansion with respect to the eigenbasis yields the following for all $k\in\setNatural$.
-      \begin{align*}
-        \ket{n_k} &= -\frac{1}{2}\sum_{p=1}^{k-1} \bracket{n_p}{n_{k-p}}\ket{n} \\
-        &+ \sum_{\substack{m\in\mathscr{I}\\m\neq n}}
-          \begin{aligned}[t]
-            &\left[ -\frac{\bra{m}V\ket{n_{k-1}}}{E_m-E_n} \right. \\
-            &\left. + \sum_{p=1}^{k-1} \frac{E_{np}\bracket{m}{n_{k-p}}}{E_m - E_n} \right] \ket{m}
+      Inserting this now into the expansion with respect to the eigenbasis yields the following nearly explicit recursive formula for $\ket{n_k}$ for all $k\in\setNatural$.
+      \[
+        % \tcboxmath{
+          \begin{aligned}
+            \ket{n_k} =
+            &\bracket{n}{n_k}\ket{n} \\
+            &+ \sum_{\substack{m\in\mathscr{I}\\m\neq n}} \bigg[
+              \begin{aligned}[t]
+                &-\frac{\bra{m}V\ket{n_{k-1}}}{E_m-E_n} \\
+                &+ \sum_{p=1}^{k-1} \frac{E_{np}\bracket{m}{n_{k-p}}}{E_m - E_n} \bigg] \ket{m}
+              \end{aligned}
           \end{aligned}
-      \end{align*}
+        % }
+      \]
+      To this moment we have not used the normalization condition for the derivation of $\ket{n_k}$.
+      By using the recursive equation based on this condition we can then explicitly describe how to compute the state shifts.
+      \[
+          \begin{aligned}
+            \ket{n_k} =
+            &-\frac{1}{2}\sum_{p=1}^{k-1} \bracket{n_p}{n_{k-p}}\ket{n} \\
+            &+ \sum_{\substack{m\in\mathscr{I}\\m\neq n}} \bigg[
+              \begin{aligned}[t]
+                &-\frac{\bra{m}V\ket{n_{k-1}}}{E_m-E_n} \\
+                &+ \sum_{p=1}^{k-1} \frac{E_{np}\bracket{m}{n_{k-p}}}{E_m - E_n} \bigg] \ket{m}
+              \end{aligned}
+          \end{aligned}
+      \]
 
-      With this last equation we now have obtained explicit inductive formulas with their respective starting values for $E_{nk}$ and $\ket{n_k}$ for all $k\in\setNatural$.
+      \paragraph{Computations to Second Order:}
+      With this last equation we now have obtained explicit recursive formulas with their respective starting values for $E_{nk}$ and $\ket{n_k}$ for all $k\in\setNatural$.
       Through an iterative procedure beginning by $k=1$ one can now directly obtain the formulas for the energy and state shifts.
       \[
         E_{n1} = \bra{n}V\ket{n}
@@ -244,33 +295,88 @@
       \]
       The same formulas will be used for $k=2$.
       But this time we will directly insert the equations for $E_{n1}$ and $\ket{n_1}$ obtained above.
-      \begin{align*}
-        E_{n2}
-        &= \bra{n}V\ket{n_1} - E_{n1}\bracket{n}{n_1} \\
-        &= -\sum_{\substack{m\in\mathscr{I} \\ m\neq n}} \frac{\bra{m}V\ket{n}}{E_m-E_n} \bra{n}V\ket{m}
-      \end{align*}
-      \begin{align*}
-        \ket{n_2}
-        &= -\frac{1}{2} \bracket{n_1}{n_{1}}\ket{n} \\
-        &+ \sum_{\substack{m\in\mathscr{I}\\m\neq n}}
-          \begin{aligned}[t]
-            &\left[ -\frac{\bra{m}V\ket{n_{1}}}{E_m-E_n} \right. \\
-            &\left. + \frac{E_{n1}\bracket{m}{n_{1}}}{E_m - E_n} \right] \ket{m}
-          \end{aligned}
-        \\
-        &= -\frac{1}{2} \sum_{\substack{m,k\in\mathscr{I}\\m,k\neq n}} \frac{\bra{n}V\ket{m}}{E_m-E_n} \frac{\bra{k}V\ket{n}}{E_k-E_n} \bracket{m}{k} \ket{n} \\
-        &+ \sum_{\substack{m\in\mathscr{I}\\m\neq n}}
-          \begin{aligned}[t]
-            &\left[ \sum_{\substack{k\in\mathscr{I} \\ k\neq n}} \frac{\bra{k}V\ket{n}}{E_k-E_n} \frac{\bra{m}V\ket{k}}{E_m-E_n} \right. \\
-            &\left. - \sum_{\substack{k\in\mathscr{I} \\ k\neq n}} \frac{\bra{k}V\ket{n}}{E_k-E_n} \frac{\bra{n}V\ket{n} \bracket{m}{k}}{E_m - E_n} \right] \ket{m}
-          \end{aligned}
-        \\
-        &= -\frac{1}{2} \sum_{\substack{m\in\mathscr{I}\\m\neq n}} \frac{\absolute{\bra{m}V\ket{n}}^2}{(E_m-E_n)^2} \ket{n} \\
-        &+ \sum_{\substack{m,k\in\mathscr{I}\\m,k\neq n}} \frac{\bra{k}V\ket{n} \bra{m}V\ket{k}}{(E_k-E_n)(E_m-E_n)} \ket{m} \\
-        &- \sum_{\substack{m\in\mathscr{I}\\m\neq n}} \frac{\bra{n}V\ket{n} \bra{m}V\ket{n}}{(E_m-E_n)^2} \ket{m}
-      \end{align*}
-      This proves the proposition.
-      \hfill$\square{}$
+      $E_{n2}$ can be computed directly.
+      \[
+        \begin{aligned}
+          E_{n2}
+          &= \bra{n}V\ket{n_1} - E_{n1}\bracket{n}{n_1} \\
+          &= -\sum_{\substack{m\in\mathscr{I} \\ m\neq n}} \frac{\bra{m}V\ket{n}}{E_m-E_n} \bra{n}V\ket{m}
+        \end{aligned}
+      \]
+      % For $\ket{n_2}$ we first use the recursive equation.
+      \[
+        \begin{aligned}
+          \ket{n_2}
+          &=
+            \begin{aligned}[t]
+              &-\frac{1}{2} \bracket{n_1}{n_{1}}\ket{n} \\
+              &+ \sum_{\substack{m\in\mathscr{I}\\m\neq n}} \bigg[
+                \begin{aligned}[t]
+                  &-\frac{\bra{m}V\ket{n_{1}}}{E_m-E_n} \\
+                  &+ \frac{E_{n1}\bracket{m}{n_{1}}}{E_m - E_n} \bigg] \ket{m}
+                \end{aligned}
+            \end{aligned}
+        \end{aligned}
+      \]
+      % Now we insert the expressions for $E_{n1}$ and $\ket{n_1}$.
+      \[
+        \begin{aligned}
+          = &-\frac{1}{2} \sum_{\substack{m,k\in\mathscr{I}\\m,k\neq n}} \frac{\bra{n}V\ket{m}}{E_m-E_n} \frac{\bra{k}V\ket{n}}{E_k-E_n} \bracket{m}{k} \ket{n} \\
+          &+ \sum_{\substack{m\in\mathscr{I}\\m\neq n}} \Bigg[
+            \begin{aligned}[t]
+              & \sum_{\substack{k\in\mathscr{I} \\ k\neq n}} \frac{\bra{k}V\ket{n}}{E_k-E_n} \frac{\bra{m}V\ket{k}}{E_m-E_n}  \\
+              & - \sum_{\substack{k\in\mathscr{I} \\ k\neq n}} \frac{\bra{k}V\ket{n}}{E_k-E_n} \frac{\bra{n}V\ket{n} \bracket{m}{k}}{E_m - E_n} \Bigg] \ket{m}
+            \end{aligned}
+          \\
+          = &-\frac{1}{2} \sum_{\substack{m\in\mathscr{I}\\m\neq n}} \frac{\absolute{\bra{m}V\ket{n}}^2}{(E_m-E_n)^2} \ket{n} \\
+          &+ \sum_{\substack{m,k\in\mathscr{I}\\m,k\neq n}} \frac{\bra{k}V\ket{n} \bra{m}V\ket{k}}{(E_k-E_n)(E_m-E_n)} \ket{m} \\
+          &- \sum_{\substack{m\in\mathscr{I}\\m\neq n}} \frac{\bra{n}V\ket{n} \bra{m}V\ket{n}}{(E_m-E_n)^2} \ket{m}
+        \end{aligned}
+      \]
+
+      \paragraph{Second Normalization:}
+      We will now assume a different normalization condition.
+      \[
+        \bracket{n}{n(λ)} = 1
+      \]
+      Again, we insert the series expansion in terms of $λ$ and get the following.
+      \[
+        1 = \sum_{k=0}^\infty λ^k \bracket{n}{n_k} = \bracket{n}{n} + \sum_{k=1}^\infty λ^k \bracket{n}{n_k}
+      \]
+      Comparing by coefficients now gives us different and simpler result.
+      \[
+        \bracket{n}{n_0} = 1
+        \separate
+        \forall k\in\setNatural:\quad \bracket{n}{n_k} = 0
+      \]
+      With this the starting values for the recursive equations will not change.
+      We insert the second equation into the recursive equations for the energy and state shifts at the time we have not used the normalization condition and get for all $k\in\setNatural$ the following.
+      \[
+        E_{nk} = \bra{n}V\ket{n_{k-1}}
+      \]
+      \[
+        \begin{aligned}
+          \ket{n_k} &= \sum_{\substack{m\in\mathscr{I}\\m\neq n}} \bigg[
+            \begin{aligned}[t]
+              & -\frac{\bra{m}V\ket{n_{k-1}}}{E_m-E_n} \\
+              & + \sum_{p=1}^{k-1} \frac{E_{np}\bracket{m}{n_{k-p}}}{E_m - E_n} \bigg] \ket{m}
+            \end{aligned}
+        \end{aligned}
+      \]
+      In the second normalization $E_{n1}$ and $\ket{n_1}$ do not change.
+      But for the second order correction we obtain the following.
+      This will finish the proof.
+      \[
+        E_{n2} = \bra{n}V\ket{n_1}
+      \]
+      \[
+        \begin{aligned}
+          \ket{n_2}
+          = &\sum_{\substack{m,k\in\mathscr{I}\\m,k\neq n}} \frac{\bra{k}V\ket{n} \bra{m}V\ket{k}}{(E_k-E_n)(E_m-E_n)} \ket{m} \\
+          &- \sum_{\substack{m\in\mathscr{I}\\m\neq n}} \frac{\bra{n}V\ket{n} \bra{m}V\ket{n}}{(E_m-E_n)^2} \ket{m}
+        \end{aligned}
+      \]
+      \hfill $\square$
     \end{multicols}
   % section problem_18_perturbation_theory (end)
 
