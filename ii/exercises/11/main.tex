@@ -2,6 +2,7 @@
 \usepackage{standard}
 
 \geometry{left=27mm,right=27mm,top=40mm,bottom=30mm}
+\allowdisplaybreaks
 
 \newcommand{\exerciseHeader}{%
   \hrule
@@ -31,6 +32,7 @@
 \newcommand{\bra}[1]{\left\langle #1 \right\vert}
 \newcommand{\ket}[1]{\left\vert #1 \right\rangle}
 \newcommand{\bracket}[2]{\left\langle #1 \middle\vert #2 \right\rangle}
+\DeclareMathOperator{\derivative}{\mathrm{D}}
 
 \begin{document}
   \selectlanguage{english}
@@ -274,7 +276,269 @@
 
   \newpage
 
-  \section*{Problem 20} % (fold)
+  \section*{Problem 19: Scattering off a Radial Potential} % (fold)
+  \label{sec:problem_19}
+    \begin{multicols}{2}
+      \paragraph{Preliminaries:}
+      Let $\roundBrackets{\mathscr{H},\bracket{\cdot}{\cdot}}$ be the separable Hilbert space of three-dimensional square-integrable functions with Lebesgue-measure λ and the typical scalar product which models the scattering of a nonrelativistic particle of mass $m\in\setReal^+$.
+      \[
+        \mathscr{H}
+        % \define \mathscr{L}^2\roundBrackets{\setReal^3}
+        = \set{\function{φ}{\setReal^3}{\setComplex}}{\integral{\setReal^3}{}{\absolute{φ}^2}{λ} < \infty}
+      \]
+      \[
+        \function{\bracket{\cdot}{\cdot}}{\mathscr{H}}{\mathscr{H}}
+        \separate
+        \bracket{φ}{ψ} \define \integral{\setReal^3}{}{\bar{φ}ψ}{λ}
+      \]
+      Let $V\in\mathscr{H}$ be the spherically symmetric potential of the given system.
+      We will use the spherical standard parameterization $(M,μ)$ of $\setReal^3$.
+      \[
+        M\define \setReal^+\times[0,π]\times[0,2π)
+      \]
+      \[
+        \function{μ}{M}{\setReal^3}
+        \separate
+        μ(r,ϑ,φ) \define
+        \begin{pmatrix}
+          r\sinϑ\cosφ \\
+          r\sinϑ\sinφ \\
+          r\cosϑ
+        \end{pmatrix}
+      \]
+      The potential $V$ can be rewritten in form of a scaled radial potential $U$.
+      \[
+        \function{U}{\setReal^+}{\setReal}
+      \]
+      \[
+        \forall x\in\setReal^3:\quad U(\norm{x}) \define \frac{2m}{\hbar^2}V(x)
+      \]
+      Hence, the typical Hamilton operator is given by the expression below.
+      \[
+        \function{H}{\mathscr{H}}{\mathscr{H}}
+        \separate
+        H \define -\frac{\hbar^2}{2m}\laplacian + V
+      \]
+
+      \paragraph{Expansion:}
+      Let $k\in\setReal^+$ be arbitrary and let $\ket{ψ_k}\in\mathscr{H}$ be a solution of the Schrödinger equation with eigenvalue $E(k)$.
+      \[
+        H\ket{ψ_k} = E(k)\ket{ψ_k}
+        \separate
+        E(k)\define \frac{\hbar^2k^2}{2m}
+      \]
+      By inserting the definitions and multiplying with $2m\hbar^{-2}$ this equation takes on the following form.
+      \[
+        \roundBrackets{\laplacian - U\circ\norm{\cdot}  + k^2}\ket{ψ_k} = 0
+      \]
+      To model the scattering of a particle, we assume the particle to be a plane wave in $z$-direction.
+      Because of that and due to the radial potential the wave function should not depend on the azimuth angle.
+      So for all $(r,ϑ,φ)\in M$ we can reformulate the wave function as follows.
+      \[
+        \tilde{ψ}_k(r,ϑ) \define ψ_k\circ μ(r,ϑ,φ)
+      \]
+      Thanks to the spherically symmetric potential, we can expand $\ket{ψ_k}$ in terms of radial functions $\function{A_l}{\setReal^+}{\setComplex}$ and spherical harmonics $\mathscr{Y}_{l0}$ with coefficients $c_{l}\in\setComplex$ for all $l\in\setNatural_0$ and $r\in\setReal^+$.
+      Therefore, we get the following for all $(r,ϑ,φ)\in M$.
+      \begin{align*}
+        \tilde{ψ}_k(r,ϑ)
+        &= \sum_{l=0}^\infty c_{l} A_l(r) \mathscr{Y}_{l0}(ϑ) \\
+        &= \sum_{l=0}^\infty \tilde{c}_l A_l(r) P_l(\cos ϑ)
+      \end{align*}
+      Here $P_l$ are the Legendre polynomials and $\tilde{c}_l\in\setComplex$ for all $l\in\setNatural_0$.
+      For the expansion to be valid, the radial functions $A_l$ have to fulfill the radial Schrödinger equation for all $l\in\setNatural_0$ and $r\in\setReal^+$.
+      \[
+        \begin{aligned}
+          0 =&\ r^2 A''_l(r) + 2r A'_l(r) \\
+          &+ \boxBrackets{\roundBrackets{k^2 - U(r)}r^2 - l(l+1)} A_l(r)
+        \end{aligned}
+      \]
+      This equation can be simplified by defining a variant of the radial function for all $l\in\setNatural_0$ and $r\in\setReal^+$.
+      \[
+        \function{u_l}{\setReal^+}{\setComplex}
+        \separate
+        u_l(r) := r A_l(r)
+      \]
+      Then for all $l\in\setNatural_0$ the variants $u_l$ fulfill the following differential equation for all $r\in\setReal^+$.
+      \[
+        u_l''(r) + \boxBrackets{k^2-U(r)-\frac{l(l+1)}{r^2}}u_l(r) = 0
+      \]
+
+      \paragraph{Differential Equation:}
+      In the expansion of the final-state wave function of the scattered particle $ψ_k$ takes on the following form for all $r\in\setReal^+$ and $ϑ\in[0,π]$.
+      \[
+        ψ_k(r,ϑ) = \sum_{l=0}^\infty i^l (2l+1) P_l(\cos ϑ) \frac{e^{iδ_l}}{kr}g_l(r)
+      \]
+      Here $δ_l\in[0,2π]$ is the phase shift and $\function{g_l}{\setReal^+}{\setComplex}$ another radial function for all $l\in\setNatural_0$.
+      Comparing this expression with the former wave expansion we find a proportional relation for all $l\in\setNatural_0$ and $r\in\setReal^+$.
+      \[
+        \frac{g_l(r)}{r} \propto A_l(r)
+        \quad\implies\quad
+        g_l(r) \propto u_l(r)
+      \]
+      For any $l\in\setNatural_0$ both differential equations for $A_l$ and for $u_l$ are linear homogeneous differential equations of second order.
+      Hence, any solution of these equations multiplied by any constant is also a solution.
+      As a result $g_l$ has to fulfill the same differential equation as the variants $u_l$ for all $l\in\setNatural_0$ and $r\in\setReal^+$.
+      \[
+        g_l''(r) + \boxBrackets{k^2-U(r)-\frac{l(l+1)}{r^2}}g_l(r) = 0
+      \]
+
+      \paragraph{Asymptotic Behavior:}
+      Let $l\in\setNatural_0$ be arbitrary.
+      To get a general idea of what is happening near infinity we will first look at the asymptotic behavior of the differential equation fulfilled by $g_l$.
+      We will assume that $U(r)\converges[r\to\infty] 0$ which leads us to the following equation.
+      Choose $r\in\setReal^+$ to be near infinity.
+      \[
+        g_l''(r) + k^2 g_l(r) = 0
+      \]
+      This is the differential equation of the classical harmonic oscillator and can be solved easily for constants $A,B\in\setComplex$.
+      \[
+        g_l(r) = A e^{ikr} + B e^{-ikr}
+      \]
+      Therefore the variants of the radial functions will asymptotically behave the same way as a spherical wave.
+      To determine the values $A$ and $B$ we will use another more detailed approach based on the scattering amplitude.
+
+      The scattering amplitude $\function{f_k}{[0,π]}{\setComplex}$ in its partial wave expansion with partial-wave amplitudes $f_{kl}\in\setComplex$ for $l\in\setNatural_0$ can be written as follows for all $ϑ\in[0,π]$.
+      \[
+        f_k(ϑ) = \sum_{l=0}^\infty (2l+1)f_{kl} P_l(\cos ϑ)
+      \]
+      Applying this formula on the wave function of the scattered particle we get the following.
+      \[
+        ψ_k(r) \converges
+        \begin{aligned}[t]
+          & \sum_{l=0}^\infty (2l+1) P_l(\cos ϑ) \\
+          & \cdot \frac{1}{2ik} \boxBrackets{\roundBrackets{1+2ikf_{kl}} \frac{e^{ikr}}{r} - \frac{e^{-i(kr-lπ)}}{r}}
+        \end{aligned}
+      \]
+      By definition, the partial-wave amplitudes are related to the phase shifts.
+      \[
+        1+2ikf_{kl} = e^{2iδ_l}
+      \]
+      Taking this equation and comparing the partial-wave expansion based on the scattering amplitude to the already given expansion we can now conclude the following.
+      \[
+        \begin{aligned}
+          i^l &e^{iδ_l} \frac{g_l(r)}{kr}
+          \longrightarrow \frac{1}{2ik} \boxBrackets{e^{2iδ_l} \frac{e^{ikr}}{r} - \frac{e^{-i(kr-lπ)}}{r}} \\
+          &= \frac{e^{i\roundBrackets{δ_l+\frac{π}{2}l}}}{2ikr} \boxBrackets{e^{i\roundBrackets{kr - \frac{π}{2}l + δ_l}} - e^{-i\roundBrackets{kr - \frac{π}{2}l + δ_l}}} \\
+          &=  e^{il\frac{π}{2}} \frac{e^{iδ_l}}{kr} \sin\roundBrackets{ kr -\frac{π}{2}l + δ_l } \\
+          &= i^l \frac{e^{iδ_l}}{kr} \sin\roundBrackets{ kr -\frac{π}{2}l + δ_l }
+        \end{aligned}
+      \]
+      The detailed asymptotic behavior of $g_l$ is explicitly be described below.
+      \[
+        g_l(r) \converges \sin\roundBrackets{ kr -\frac{π}{2}l + δ_l }
+      \]
+
+      \paragraph{Wronskian Determinant:}
+      Let $V_1$ and $V_2$ be potentials with the same properties as $V$ and define $U_1$, $δ_l^{(1)}$ and $U_2$, $δ_l^{(2)}$ analog to $U$ and $δ_l$.
+      Let $\function{g_l,h_l}{\setReal^+}{\setComplex}$ be radial functions such that they fulfill the following differential equations for all $r\in\setReal^+$.
+      \[
+        g_l''(r) + \boxBrackets{k^2-U_1(r)-\frac{l(l+1)}{r^2}}g_l(r) = 0
+      \]
+      \[
+        h_l''(r) + \boxBrackets{k^2-U_2(r)-\frac{l(l+1)}{r^2}}h_l(r) = 0
+      \]
+      For twice continuously differentiable functions $\function{f,g}{\setReal^+}{\setComplex}$ we define the Wronskian determinant.
+      \[
+        W(f,g)\define
+        \begin{vmatrix}
+          f & g \\
+          f' & g'
+        \end{vmatrix}
+        = fg' - gf'
+      \]
+      Then the derivative of this functional determinant is given by the following expression.
+      \[
+        \derivative W(f,g)
+        \begin{aligned}[t]
+          &= f'g' + fg'' - g'f' - gf'' \\
+          &= fg'' - gf''
+        \end{aligned}
+      \]
+      Inserting now $g_l$ and $h_l$ we can prove the proposition.
+      \[
+        \begin{aligned}[t]
+          \derivative &W(g_l,h_l)(r) \\
+          &= g_l(r) h_l''(r) - h_l(r) g_l''(r) \\
+          &=
+            \begin{aligned}[t]
+              &g_l(r) h_l(r) \boxBrackets{U_2(r) + \frac{l(l+1)}{r^2} - k^2} \\
+              &-h_l(r) g_l(r) \boxBrackets{U_1(r) + \frac{l(l+1)}{r^2} - k^2} \\
+            \end{aligned}
+          \\
+          &= g_l(r) h_l(r) \boxBrackets{U_2(r) - U_1(r)}
+        \end{aligned}
+      \]
+      \hfill$\square$
+
+      \paragraph{Phase Shift Difference:}
+      The integral for the phase shift difference can be computed straightforward by using the results above and the fundamental theorem of calculus.
+      \[
+        \begin{aligned}
+          -\frac{2m}{\hbar^2 k} &\integral{0}{\infty}{g_l(r) h_l(r) \boxBrackets{V_2(r) - V_1(r)}}{r} \\
+          &= -\frac{1}{k} \integral{0}{\infty}{g_l(r) h_l(r) \boxBrackets{U_2(r) - U_1(r)}}{r} \\
+          &= -\frac{1}{k} \integral{0}{\infty}{\derivative W(g_l,h_l)(r)}{r} \\
+          &= -\frac{1}{k} \appendValue{W(g_l,h_l)(r)}{r=0}^\infty \\
+          &= -\frac{1}{k} \appendValue{\boxBrackets{g_l(r)h_l'(r) - h_l(r) g_l'(r)}}{r=0}^\infty \\
+        \end{aligned}
+      \]
+      Because the radial functions have to be regular at the origin, we are assuming the following conditions.
+      \[
+        g_l(0) = h_l(0) = 0
+      \]
+      We already know about the asymptotic behavior of $g_l$ and $h_l$.
+      Choose $r\in\setReal^+$ to be near infinity.
+      \[
+        g_l(r) \converges \sin\roundBrackets{ kr -\frac{π}{2}l + δ_l^{(1)} }
+      \]
+      \[
+        h_l(r) \converges \sin\roundBrackets{ kr -\frac{π}{2}l + δ_l^{(2)} }
+      \]
+      Therefore we can derive the asymptotic behavior of $h_l'$ and $g_l'$ as well by computing the derivative of the asymptotic function.
+      \[
+        g_l'(r) \converges k \cos\roundBrackets{ kr -\frac{π}{2}l + δ_l^{(1)} }
+      \]
+      \[
+        h_l'(r) \converges k \cos\roundBrackets{ kr -\frac{π}{2}l + δ_l^{(2)} }
+      \]
+      We will now insert these ideas into the calculation of the integral.
+      Additionally, we use an addition theorem to finish the proof.
+      \[
+        \begin{aligned}
+          -\frac{2m}{\hbar^2 k} &\integral{0}{\infty}{g_l(r) h_l(r) \boxBrackets{V_2(r) - V_1(r)}}{r} \\
+          &= -\frac{1}{k} \lim_{r\to\infty}\boxBrackets{g_l(r)h_l'(r) - h_l(r) g_l'(r)} \\
+          &= -\frac{1}{k} \lim_{r\to\infty}
+            \begin{aligned}[t]
+              &\left[ \sin\roundBrackets{ kr -\frac{π}{2}l + δ_l^{(1)} } \right.\\
+              &\quad \cdot k \cos\roundBrackets{ kr -\frac{π}{2}l + δ_l^{(2)} } \\
+              &- \sin\roundBrackets{ kr -\frac{π}{2}l + δ_l^{(2)} } \\
+              &\quad \left. \cdot k \cos\roundBrackets{ kr -\frac{π}{2}l + δ_l^{(1)} } \right]
+            \end{aligned}
+          \\
+          &= \lim_{r\to\infty}
+            \begin{aligned}[t]
+              &\left[ \sin\roundBrackets{ kr -\frac{π}{2}l + δ_l^{(2)} } \right.\\
+              &\quad\cdot \cos\roundBrackets{ kr -\frac{π}{2}l + δ_l^{(1)} } \\
+              &- \sin\roundBrackets{ kr -\frac{π}{2}l + δ_l^{(1)} } \\
+              &\quad \left. \cdot \cos\roundBrackets{ kr -\frac{π}{2}l + δ_l^{(2)} } \right]
+            \end{aligned}
+          \\
+          &= \lim_{r\to\infty} \sin
+              \begin{aligned}[t]
+                &\left[ \roundBrackets{kr -\frac{π}{2}l + δ_l^{(2)}} \right. \\
+                &\left. - \roundBrackets{kr -\frac{π}{2}l + δ_l^{(1)}} \right]
+              \end{aligned}
+          \\
+          &= \lim_{r\to\infty} \sin \roundBrackets{δ_l^{(2)} - δ_l^{(1)}} \\
+          &= \sin \roundBrackets{δ_l^{(2)} - δ_l^{(1)}}
+        \end{aligned}
+      \]
+      \hfill$\square$
+    \end{multicols}
+  % section problem_19 (end)
+
+  \newpage
+
+  \section*{Problem 20: Identical Particles in an Infinite Well} % (fold)
   \label{sec:problem_20}
     \begin{multicols}{2}
       \paragraph{Preliminaries:}
